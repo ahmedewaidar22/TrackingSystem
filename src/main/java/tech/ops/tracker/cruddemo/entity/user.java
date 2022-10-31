@@ -1,121 +1,89 @@
 package tech.ops.tracker.cruddemo.entity;
 
+import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.Type;
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="users")
-public class user {
-	
-	//define fields
-	@Id
-	 @Column(name = "user_id", updatable = false, nullable = false, columnDefinition = "VARCHAR(255)")
-    @Type(type = "uuid-char")
-	private UUID user_id;
-	@Column(nullable = false ,name="full_name")
-	private String full_name;
-	@Column(name="email")
-	private String email;
-	@Column(name="mobile")
-	private String mobile;
-	@Column(name="isActive")
-	private int isActive;
-	@Column(name="position")
-	private String position;
-	
-    @ManyToMany(mappedBy = "user")
-    Set<group> group;
-		
-	public Set<group> getgroup() {
-		return group;
-	}
+@Table(name = "users",
+       uniqueConstraints = {
+           @UniqueConstraint(columnNames = "username"),
+           @UniqueConstraint(columnNames = "email")
+       })
+public class User {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
+  @NotBlank
+  @Size(max = 20)
+  private String username;
 
-	public void setgroup(Set<group> group) {
-		this.group = group;
-	}
+  @NotBlank
+  @Size(max = 50)
+  @Email
+  private String email;
 
+  @NotBlank
+  @Size(max = 120)
+  private String password;
 
-	public user() {
-		
-	}
-	
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(name = "user_roles", 
+             joinColumns = @JoinColumn(name = "user_id"),
+             inverseJoinColumns = @JoinColumn(name = "role_id"))
+  private Set<Role> roles = new HashSet<>();
 
-	public user(UUID user_id, String full_name, String email, String mobile, int isActive, String position) {
-		this.user_id = user_id;
-		this.full_name = full_name;
-		this.email = email;
-		this.mobile = mobile;
-		this.isActive = isActive;
-		this.position = position;
-	}
+  public User() {
+  }
 
+  public User(String username, String email, String password) {
+    this.username = username;
+    this.email = email;
+    this.password = password;
+  }
 
-	public UUID getUser_id() {
-		return user_id;
-	}
+  public Long getId() {
+    return id;
+  }
 
-	public void setUser_id(UUID user_id) {
-		this.user_id = UUID.randomUUID();
-	}
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-	public String getFull_name() {
-		return full_name;
-	}
+  public String getUsername() {
+    return username;
+  }
 
-	public void setFull_name(String full_name) {
-		this.full_name = full_name;
-	}
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-	public String getEmail() {
-		return email;
-	}
+  public String getEmail() {
+    return email;
+  }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-	public String getMobile() {
-		return mobile;
-	}
+  public String getPassword() {
+    return password;
+  }
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-	public int getIsActive() {
-		return isActive;
-	}
+  public Set<Role> getRoles() {
+    return roles;
+  }
 
-	public void setIsActive(int isActive) {
-		this.isActive = isActive;
-	}
-
-	public String getPosition() {
-		return position;
-	}
-
-	public void setPosition(String position) {
-		this.position = position;
-	}
-
-	@Override
-	public String toString() {
-		return "user [user_id=" + user_id + ", full_name=" + full_name + ", email=" + email + ", mobile=" + mobile
-				+ ", isActive=" + isActive + ", position=" + position + ", group=" + group + "]";
-	}
-
-
-
-
-	
+  public void setRoles(Set<Role> roles) {
+    this.roles = roles;
+  }
 }

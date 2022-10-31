@@ -43,8 +43,8 @@ project project;
 @ManyToMany(cascade=CascadeType.ALL)
 @JoinTable(name="task_user",
 			joinColumns = @JoinColumn(name="task_id",referencedColumnName = "task_id"),
-			inverseJoinColumns = @JoinColumn(name="user_id",referencedColumnName="user_id"))
-Set<user> user;
+			inverseJoinColumns = @JoinColumn(name="user_id",referencedColumnName="id"))
+Set<User> user;
 
 public task() {
 
@@ -53,7 +53,7 @@ public task() {
 
 public task(UUID task_id, String taskName, String startDate, String endDate, int numberOfMin, String taskTag,
 		int project_id, tech.ops.tracker.cruddemo.entity.project project,
-		Set<tech.ops.tracker.cruddemo.entity.user> user) {
+		Set<tech.ops.tracker.cruddemo.entity.User> user) {
 	super();
 	this.task_id = task_id;
 	TaskName = taskName;
@@ -131,11 +131,11 @@ public void setProject(project project) {
 	this.project = project;
 }
 
-public Set<user> getUser() {
+public Set<User> getUser() {
 	return user;
 }
 
-public void setUser(Set<user> user) {
+public void setUser(Set<User> user) {
 	this.user = user;
 }
 

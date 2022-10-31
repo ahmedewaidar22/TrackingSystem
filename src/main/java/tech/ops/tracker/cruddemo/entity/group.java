@@ -36,13 +36,13 @@ public class group {
 	@ManyToMany(cascade=CascadeType.ALL)
 	   @JoinTable(name="group_user",
 	   			joinColumns = @JoinColumn(name="group_id",referencedColumnName = "group_id"),
-	   			inverseJoinColumns = @JoinColumn(name="user_id",referencedColumnName="user_id"))
-	   Set<user> user;
+	   			inverseJoinColumns = @JoinColumn(name="user_id",referencedColumnName="id"))
+	   Set<User> user;
 	
-	    public Set<user> getUser() {
+	    public Set<User> getUser() {
 		return user;
 	}
-	public void setUser(Set<user> user) {
+	public void setUser(Set<User> user) {
 		this.user = user;
 	}
 		public UUID getGroup_id() {

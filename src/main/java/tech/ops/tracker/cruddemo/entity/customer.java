@@ -22,7 +22,7 @@ public class customer {
 	@Column(name="email")	
 	private String email;
 	@Column(name="mobile")	
-	private int mobile;
+	private String mobile;
 	@Column(name="Address")	
 	private String Address;
 //	@OneToMany(mappedBy = "projects")
@@ -46,10 +46,10 @@ public class customer {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public int getMobile() {
+	public String getMobile() {
 		return mobile;
 	}
-	public void setMobile(int mobile) {
+	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
 	public String getAddress() {
@@ -61,7 +61,7 @@ public class customer {
 	public customer() {
 
 	}
-	public customer(UUID customer_id, String fullName, String email, int mobile, String address) {
+	public customer(UUID customer_id, String fullName, String email, String mobile, String address) {
 
 		this.customer_id = customer_id;
 		FullName = fullName;
