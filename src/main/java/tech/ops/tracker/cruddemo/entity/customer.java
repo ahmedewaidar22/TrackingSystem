@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.Type;
 
@@ -17,8 +18,10 @@ public class customer {
     @Column(name = "customer_id", updatable = false, nullable = false, columnDefinition = "VARCHAR(255)")
     @Type(type = "uuid-char")
 		private UUID customer_id;
+	@NotBlank
 	@Column(name="FullName")
 	private String FullName;
+	  @NotBlank
 	@Column(name="email")	
 	private String email;
 	@Column(name="mobile")	
